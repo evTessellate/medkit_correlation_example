@@ -1,0 +1,25 @@
+launch:
+  # Fault registry backend — loads correlation rules from this package
+  - node:
+      pkg: ros2_medkit_fault_manager
+      exec: fault_manager_node
+      name: fault_manager
+      output: screen
+      param:
+        - name: database_path
+          value: "$(env HOME)/.ros2_medkit/correllation_faults_example.db"
+        - name: correlation.config_file
+          value: $(find-pkg-share medkit_correllation_example)/config/correlation_rules.yaml
+
+  # SOVD gateway (REST API on http://localhost:8080/api/v1)
+  - include:
+      file: $(find-pkg-share ros2_medkit_gateway)/launch/gateway.launch.py
+      arg:
+        - name: config_file
+          value: "$(find-pkg-share medkit_correllation_example)/config/gateway_params.yaml"    
+
+  # Example node — reports MAIN_FAULT + CASCADED_FAULT every 2 s
+  - node:
+      pkg: medkit_correllation_example
+      exec: correllation_example_node
+      output: screen

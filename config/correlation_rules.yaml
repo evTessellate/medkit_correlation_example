@@ -1,0 +1,19 @@
+correlation:
+  enabled: true
+  default_window_ms: 5000
+
+  patterns:
+    cascaded-fault:
+      codes: ["CASCADED_FAULT"]
+
+  rules:
+    - id: main-masks-cascaded
+      name: "Main Fault Masks Cascaded Fault"
+      mode: hierarchical
+      root_cause:
+        codes:
+          - MAIN_FAULT
+      symptoms:
+        - pattern: cascaded-fault
+      mute_symptoms: true
+      auto_clear_with_root: true
