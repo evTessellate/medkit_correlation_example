@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
-project(medkit_correllation_example)
+project(medkit_correlation_example)
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
@@ -13,13 +13,13 @@ find_package(ros2_medkit_fault_reporter REQUIRED)
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
 
-add_executable(correllation_example_node src/medkit_correlaton_example.cpp)
-ament_target_dependencies(correllation_example_node
+add_executable(correlation_example_node src/medkit_correlaton_example.cpp)
+ament_target_dependencies(correlation_example_node
   rclcpp
   ros2_medkit_fault_reporter
 )
 
-install(TARGETS correllation_example_node
+install(TARGETS correlation_example_node
   DESTINATION lib/${PROJECT_NAME}
 )
 
